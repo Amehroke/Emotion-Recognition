@@ -54,6 +54,17 @@ This project focuses on emotion recognition from audio files using both TensorFl
 
 ---
 
+## Labels
+Labels for the emotions in the `.csv` files are as follows:
+- 0: 'anger'
+- 1: 'disgust'
+- 2: 'fear'
+- 3: 'happiness'
+- 4: 'neutral'
+- 5: 'sadness'
+- 6: 'surprise'
+---
+
 ## Dataset Structure
 The dataset is organized as follows:
 ```
