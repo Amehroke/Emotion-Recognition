@@ -235,8 +235,3 @@ balanced_data.to_csv("balanced_dataset.csv", index=False)
 
 ---
 
-## Author
-This project was collaboratively developed with iterative enhancements and debugging during an interactive session.
-
----
-
