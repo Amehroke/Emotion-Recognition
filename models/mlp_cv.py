@@ -1,7 +1,7 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.svm import SVC
+from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import classification_report, accuracy_score
 import json
 import os
@@ -13,12 +13,6 @@ csv_files = [
     "notebooks/yamnet_balanced.csv",
     "notebooks/yamnet_extracted_features.csv",
 ]
-
-# Hyperparameter grid for GridSearchCV
-param_grid = {
-    "C": [8, 10, 15],
-    "class_weight": [None, "balanced"],
-}
 
 
 def load_data(file_path):
@@ -37,8 +31,16 @@ def preprocess_data(data):
     return X_train, X_test, y_train, y_test
 
 
-def train(X_train, y_train, param_grid):
-    model = SVC(random_state=42)
+def train_with_grid_search(X_train, y_train):
+    model = MLPClassifier(
+        hidden_layer_sizes=(
+            64,
+            128,
+            256,
+        ),
+        max_iter=1000,
+        random_state=42,
+    )
     model.fit(X_train, y_train)
     return model
 
@@ -84,7 +86,7 @@ if __name__ == "__main__":
         print(f"Size of the dataset is {len(pd.read_csv(file))}")
         data = load_data(file)
         X_train, X_test, y_train, y_test = preprocess_data(data)
-        model = train(X_train, y_train)
+        model = train_with_grid_search(X_train, y_train)
         accuracy, report = evaluate_model(model, X_test, y_test)
         save_results(file, model, accuracy, report)
         print("-" * 50)

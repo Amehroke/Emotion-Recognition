@@ -16,7 +16,7 @@ csv_files = [
 
 # Hyperparameter grid for GridSearchCV
 param_grid = {
-    "C": [8, 10, 15],
+    "C": [7, 10, 15, 25],
     "class_weight": [None, "balanced"],
 }
 
@@ -37,10 +37,14 @@ def preprocess_data(data):
     return X_train, X_test, y_train, y_test
 
 
-def train(X_train, y_train, param_grid):
-    model = SVC(random_state=42)
-    model.fit(X_train, y_train)
-    return model
+def train_with_grid_search(X_train, y_train):
+    model = SVC(random_state=42, kernel="rbf", gamma="auto")
+    grid_search = GridSearchCV(
+        estimator=model, param_grid=param_grid, scoring="accuracy", cv=5, n_jobs=-1
+    )
+    grid_search.fit(X_train, y_train)
+    print("Best parameters found:", grid_search.best_params_)
+    return grid_search.best_estimator_
 
 
 def evaluate_model(model, X_test, y_test):
@@ -84,7 +88,7 @@ if __name__ == "__main__":
         print(f"Size of the dataset is {len(pd.read_csv(file))}")
         data = load_data(file)
         X_train, X_test, y_train, y_test = preprocess_data(data)
-        model = train(X_train, y_train)
+        model = train_with_grid_search(X_train, y_train)
         accuracy, report = evaluate_model(model, X_test, y_test)
         save_results(file, model, accuracy, report)
         print("-" * 50)
