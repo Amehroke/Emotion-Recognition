@@ -36,26 +36,38 @@ results_csv_path = os.path.join(results_dir, "results_summary.csv")
 results_df.to_csv(results_csv_path, index=False)
 print(f"Results summary saved to {results_csv_path}")
 
-# Plot the results
-plt.figure(figsize=(12, 6))
-for metric in ["Accuracy", "Precision", "Recall", "F1-Score"]:
-    plt.plot(
-        results_df["Dataset"] + " - " + results_df["Model"],
-        results_df[metric],
-        label=metric,
-        marker="o",
-    )
+# Create datasets and models for plotting
+datasets_models = results_df["Dataset"] + " - " + results_df["Model"]
 
-plt.title("Model Performance Comparison")
+# Plot Accuracy
+plt.figure(figsize=(10, 6))
+plt.plot(
+    datasets_models, results_df["Accuracy"], label="Accuracy", marker="o", color="blue"
+)
+plt.title("Model Performance: Accuracy")
+plt.ylabel("Accuracy")
+plt.xlabel("Dataset - Model")
+plt.xticks(rotation=90, fontsize=8)
+plt.legend()
+plt.tight_layout()
+plot_accuracy_path = os.path.join(results_dir, "model_performance_accuracy.png")
+plt.savefig(plot_accuracy_path)
+print(f"Accuracy plot saved to {plot_accuracy_path}")
+plt.show()
+
+# Plot Precision, Recall, and F1-Score
+plt.figure(figsize=(10, 6))
+for metric in ["Precision", "Recall", "F1-Score"]:
+    plt.plot(datasets_models, results_df[metric], label=metric, marker="o")
+plt.title("Model Performance: Precision, Recall, and F1-Score")
 plt.ylabel("Score")
 plt.xlabel("Dataset - Model")
 plt.xticks(rotation=90, fontsize=8)
 plt.legend()
 plt.tight_layout()
-
-# Save the plot
-plot_path = os.path.join(results_dir, "model_performance_comparison.png")
-plt.savefig(plot_path)
-print(f"Performance comparison plot saved to {plot_path}")
-
+plot_other_metrics_path = os.path.join(
+    results_dir, "model_performance_other_metrics.png"
+)
+plt.savefig(plot_other_metrics_path)
+print(f"Other metrics plot saved to {plot_other_metrics_path}")
 plt.show()

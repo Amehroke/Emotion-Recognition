@@ -201,7 +201,9 @@ the hyperparameters for KNN, SVC, and Random Forest, while MLP was manually tune
 
 Grid search was applied to systematically explore the hyperparameter space for KNN, SVC, and Random Forest. For KNN, the 
 number of neighbors and distance metrics were tuned; for SVC, the kernel type, regularization parameter (\textit{C}), and 
-kernel coefficient (\textit{gamma}) were optimized; and for Random Forest, the number of trees (\textit{n\_estimators}), maximum tree depth (\textit{max\_depth}), and minimum samples per split (\textit{min\_samples\_split}) were adjusted. MLP was tuned manually based on its learning rate, number of hidden layers, and neurons per layer.
+kernel coefficient (\textit{gamma}) were optimized; and for Random Forest, the number of trees (\textit{n\_estimators}), 
+maximum tree depth (\textit{max\_depth}), and minimum samples per split (\textit{min\_samples\_split}) were adjusted. 
+MLP was tuned manually based on its learning rate, number of hidden layers, and neurons per layer.
 
 \subsubsection*{Model Evaluation}
 
@@ -218,7 +220,121 @@ imbalanced nature of certain emotion classes. The results of these evaluations a
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Evaluation and Results}
+\section*{Evaluation and Final Results}
+
+The performance of the selected models (KNN, SVC, Random Forest, and MLP) was evaluated on multiple datasets using accuracy, 
+precision, recall, and F1-score as metrics. The results are summarized in Table \ref{tab:results_summary} and visualized in 
+Figures \ref{fig:accuracy_plot} and \ref{fig:other_metrics_plot}.
+
+\subsubsection*{Summary of Results}
+
+Table \ref{tab:results_summary} shows the performance metrics of all models across the different datasets. Accuracy is 
+presented in a standalone graph (Figure \ref{fig:accuracy_plot}) to emphasize its importance in emotion classification 
+tasks, while precision, recall, and F1-score are grouped together in Figure \ref{fig:other_metrics_plot} for a 
+comprehensive comparison.
+
+\begin{table}[h!]
+\centering
+\caption{Performance Summary of Models Across Datasets}
+\label{tab:results_summary}
+\begin{tabular}{|l|l|c|c|c|c|}
+\hline
+\textbf{Dataset} & \textbf{Model} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-Score} \\ \hline
+yamnet\_extracted\_features & MLPClassifier & 0.654 & 0.653 & 0.655 & 0.653 \\ \hline
+yamnet\_balanced & MLPClassifier & 0.697 & 0.696 & 0.697 & 0.696 \\ \hline
+yamnet\_balanced & RandomForestClassifier & 0.642 & 0.636 & 0.642 & 0.634 \\ \hline
+yamnet\_extracted\_features & SVC & 0.680 & 0.679 & 0.680 & 0.679 \\ \hline
+librosa\_extracted\_features & SVC & 0.679 & 0.679 & 0.679 & 0.678 \\ \hline
+% Add more rows as necessary
+\end{tabular}
+\end{table}
+
+\subsubsection*{Visual Analysis of Results}
+
+The model accuracies are depicted in Figure \ref{fig:accuracy_plot}, highlighting that the \textit{MLPClassifier} 
+consistently outperformed other models on most datasets. The \textit{RandomForestClassifier}, while robust, showed 
+slightly lower accuracy compared to SVC and MLP. 
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../assets/model_performance_accuracy.png}
+    \caption{Model Performance: Accuracy across datasets and models.}
+    \label{fig:accuracy_plot}
+\end{figure}
+
+Precision, recall, and F1-score are shown in Figure \ref{fig:other_metrics_plot}. These metrics provide insights into 
+how well the models balance false positives and false negatives, which is critical in emotion classification where 
+misclassifications can have significant impact.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../assets/model_performance_other_metrics.png}
+    \caption{Model Performance: Precision, Recall, and F1-Score across datasets and models.}
+    \label{fig:other_metrics_plot}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Conclusion}
+
+The evaluation results highlight the strengths and limitations of the models tested for emotion classification 
+based on extracted audio features. Audio classification, particularly emotion recognition, presents significant 
+challenges due to the complex and overlapping nature of audio features, as well as the variability in how emotions 
+are expressed across speakers and contexts. Key observations from this study include:
+
+\begin{itemize}
+    \item \textbf{SVC Achieved the Highest Accuracy:} 
+    Across the datasets, \textit{Support Vector Classifier (SVC)} consistently delivered the highest accuracy, 
+    showcasing its ability to handle high-dimensional feature spaces (e.g., YAMNet features) and complex decision 
+    boundaries. The optimal hyperparameter tuning using grid search further contributed to its superior performance.
+
+    \item \textbf{MLP Demonstrated Balanced Performance:} 
+    The \textit{Multi-Layer Perceptron (MLP)} showed competitive performance, especially on the \textit{yamnet\_balanced} 
+    dataset, where it achieved close to the highest scores across all metrics. MLP's ability to learn hierarchical 
+    feature representations allowed it to handle the intricacies of audio features effectively. However, it requires 
+    more careful tuning and computational resources to avoid overfitting.
+
+    \item \textbf{Random Forest's Robustness:} 
+    \textit{Random Forest} provided stable but slightly lower performance compared to SVC and MLP. Its robustness and 
+    ability to handle heterogeneous data were evident, but it struggled with the subtle, high-dimensional relationships 
+    present in audio features, which are critical for distinguishing nuanced emotional expressions.
+
+    \item \textbf{KNN as a Baseline:} 
+    \textit{K-Nearest Neighbors (KNN)} served as a baseline and performed reasonably well, demonstrating its simplicity 
+    and effectiveness for non-linear feature spaces. However, its sensitivity to class imbalances and computational 
+    inefficiency in high dimensions limited its overall performance.
+\end{itemize}
+
+\textbf{Challenges in Audio Emotion Classification:}
+Emotion classification from audio data is inherently challenging due to:
+\begin{itemize}
+    \item \textbf{Feature Overlap:} Emotional states like "happy" and "surprise" or "sad" and "neutral" often share 
+    overlapping spectral and temporal features, making them difficult to distinguish.
+    \item \textbf{High Dimensionality:} Datasets such as those with YAMNet features contain hundreds of features, 
+    necessitating robust models and hyperparameter optimization to avoid overfitting.
+    \item \textbf{Class Imbalance:} Underrepresented classes like "surprise" require careful handling to ensure the 
+    model does not favor dominant classes.
+    \item \textbf{Speaker Variability:} Differences in tone, pitch, and accent across speakers can add noise to the 
+    classification task, further complicating model training.
+\end{itemize}
+
+\textbf{Overall Findings:}
+The results indicate that SVC is the most effective model for emotion classification in this study, particularly for 
+high-dimensional datasets such as those with YAMNet features. Its ability to generalize across diverse datasets makes 
+it an ideal choice for applications where precision and recall are critical. MLP demonstrated promising results and 
+could benefit from further tuning and advanced architectures to potentially surpass SVC in future experiments.
+
+\textbf{Future Work:}
+To address the complexities of audio emotion classification, future efforts can focus on:
+\begin{itemize}
+    \item Advanced feature engineering and dimensionality reduction to improve feature quality and reduce computational complexity.
+    \item Exploring deeper neural architectures or pre-trained audio models such as transformers for enhanced representation learning.
+    \item Using ensemble methods to combine the strengths of SVC, MLP, and Random Forest for improved accuracy.
+    \item Incorporating techniques such as domain adaptation to handle speaker variability and make models more robust.
+\end{itemize}
+
+This study highlights the critical importance of model selection and optimization in tackling the challenges of audio emotion 
+classification, emphasizing the need for rigorous evaluation and future innovations in this domain.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Citation}
