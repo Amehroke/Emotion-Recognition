@@ -1,0 +1,160 @@
+[
+    {
+        "file_name": "notebooks/yamnet_balanced.csv",
+        "model_name": "SVC",
+        "model_params": {
+            "C": 1,
+            "break_ties": false,
+            "cache_size": 200,
+            "class_weight": null,
+            "coef0": 0.0,
+            "decision_function_shape": "ovr",
+            "degree": 3,
+            "gamma": "scale",
+            "kernel": "linear",
+            "max_iter": -1,
+            "probability": false,
+            "random_state": 42,
+            "shrinking": true,
+            "tol": 0.001,
+            "verbose": false
+        },
+        "accuracy": 0.6594101123595506,
+        "classification_report": {
+            "0": {
+                "precision": 0.5885167464114832,
+                "recall": 0.6648648648648648,
+                "f1-score": 0.6243654822335025,
+                "support": 185.0
+            },
+            "1": {
+                "precision": 0.5381165919282511,
+                "recall": 0.5911330049261084,
+                "f1-score": 0.5633802816901409,
+                "support": 203.0
+            },
+            "2": {
+                "precision": 0.5446428571428571,
+                "recall": 0.5754716981132075,
+                "f1-score": 0.5596330275229358,
+                "support": 212.0
+            },
+            "3": {
+                "precision": 0.6,
+                "recall": 0.5172413793103449,
+                "f1-score": 0.5555555555555556,
+                "support": 203.0
+            },
+            "4": {
+                "precision": 0.8472906403940886,
+                "recall": 0.8349514563106796,
+                "f1-score": 0.8410757946210269,
+                "support": 206.0
+            },
+            "5": {
+                "precision": 0.6722222222222223,
+                "recall": 0.55,
+                "f1-score": 0.605,
+                "support": 220.0
+            },
+            "6": {
+                "precision": 0.8380952380952381,
+                "recall": 0.9025641025641026,
+                "f1-score": 0.8691358024691358,
+                "support": 195.0
+            },
+            "accuracy": 0.6594101123595506,
+            "macro avg": {
+                "precision": 0.6612691851705915,
+                "recall": 0.6623180722984726,
+                "f1-score": 0.6597351348703283,
+                "support": 1424.0
+            },
+            "weighted avg": {
+                "precision": 0.6609809580059605,
+                "recall": 0.6594101123595506,
+                "f1-score": 0.6581017459145714,
+                "support": 1424.0
+            }
+        }
+    },
+    {
+        "file_name": "notebooks/yamnet_balanced.csv",
+        "model_name": "SVC",
+        "model_params": {
+            "C": 1,
+            "break_ties": false,
+            "cache_size": 200,
+            "class_weight": null,
+            "coef0": 0.0,
+            "decision_function_shape": "ovr",
+            "degree": 3,
+            "gamma": "scale",
+            "kernel": "linear",
+            "max_iter": -1,
+            "probability": false,
+            "random_state": 42,
+            "shrinking": true,
+            "tol": 0.001,
+            "verbose": false
+        },
+        "accuracy": 0.6594101123595506,
+        "classification_report": {
+            "0": {
+                "precision": 0.5885167464114832,
+                "recall": 0.6648648648648648,
+                "f1-score": 0.6243654822335025,
+                "support": 185.0
+            },
+            "1": {
+                "precision": 0.5381165919282511,
+                "recall": 0.5911330049261084,
+                "f1-score": 0.5633802816901409,
+                "support": 203.0
+            },
+            "2": {
+                "precision": 0.5446428571428571,
+                "recall": 0.5754716981132075,
+                "f1-score": 0.5596330275229358,
+                "support": 212.0
+            },
+            "3": {
+                "precision": 0.6,
+                "recall": 0.5172413793103449,
+                "f1-score": 0.5555555555555556,
+                "support": 203.0
+            },
+            "4": {
+                "precision": 0.8472906403940886,
+                "recall": 0.8349514563106796,
+                "f1-score": 0.8410757946210269,
+                "support": 206.0
+            },
+            "5": {
+                "precision": 0.6722222222222223,
+                "recall": 0.55,
+                "f1-score": 0.605,
+                "support": 220.0
+            },
+            "6": {
+                "precision": 0.8380952380952381,
+                "recall": 0.9025641025641026,
+                "f1-score": 0.8691358024691358,
+                "support": 195.0
+            },
+            "accuracy": 0.6594101123595506,
+            "macro avg": {
+                "precision": 0.6612691851705915,
+                "recall": 0.6623180722984726,
+                "f1-score": 0.6597351348703283,
+                "support": 1424.0
+            },
+            "weighted avg": {
+                "precision": 0.6609809580059605,
+                "recall": 0.6594101123595506,
+                "f1-score": 0.6581017459145714,
+                "support": 1424.0
+            }
+        }
+    }
+]
